@@ -124,25 +124,29 @@ uvicorn app:app --reload
 ```
 
 ---
-
 ## 📸 Screenshots
 
-Add screenshots here:
+### Home Page
 
-- Home Page
-- Dashboard
-- Upload Notes
-- Quiz Page
-- Analytics
-- Profile
-
-Example:
-
-```md
 ![Home](screenshots/home.png)
-```
 
 ---
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+---
+
+### Upload Notes
+
+![Upload](screenshots/upload.png)
+
+---
+
+### Quiz
+
+![Quiz](screenshots/quiz.png)
 
 ## 🎯 Future Improvements
 

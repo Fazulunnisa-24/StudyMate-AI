@@ -1,107 +1,139 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-function Login(){
+function Login() {
+  const navigate = useNavigate();
 
-return(
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-<div
-className="
-min-h-screen
-bg-slate-950
-text-white
-flex
-justify-center
-items-center
-"
->
+  const handleLogin = () => {
+    if (!email || !password) {
+      alert("Please fill all fields");
+      return;
+    }
 
-<div
-className="
-bg-slate-900
-p-10
-rounded-3xl
-w-[500px]
-"
->
+    const storedUser = JSON.parse(
+      localStorage.getItem("user")
+    );
 
-<h1
-className="
-text-5xl
-mb-8
-"
->
+    if (!storedUser) {
+      alert("No account found. Please sign up first.");
+      return;
+    }
 
-Login
+    if (
+      storedUser.email === email &&
+      storedUser.password === password
+    ) {
+      localStorage.setItem("isLoggedIn", "true");
 
-</h1>
+      alert("Login Successful");
 
-<input
+      navigate("/dashboard");
+    } else {
+      alert("Invalid Email or Password");
+    }
+  };
 
-className="
-w-full
-mb-6
-p-4
-rounded
-text-white
-"
+  return (
+    <div
+      className="
+      min-h-screen
+      bg-slate-950
+      text-white
+      flex
+      justify-center
+      items-center
+      "
+    >
+      <div
+        className="
+        bg-slate-900
+        p-10
+        rounded-3xl
+        w-[500px]
+        shadow-xl
+        "
+      >
+        <h1
+          className="
+          text-5xl
+          mb-8
+          font-bold
+          text-center
+          "
+        >
+          Login
+        </h1>
 
-placeholder="Email"
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) =>
+            setEmail(e.target.value)
+          }
+          className="
+          w-full
+          mb-6
+          p-4
+          rounded-xl
+          bg-slate-800
+          text-white
+          outline-none
+          "
+        />
 
-/>
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) =>
+            setPassword(e.target.value)
+          }
+          className="
+          w-full
+          mb-6
+          p-4
+          rounded-xl
+          bg-slate-800
+          text-white
+          outline-none
+          "
+        />
 
-<input
+        <button
+          onClick={handleLogin}
+          className="
+          w-full
+          bg-blue-600
+          hover:bg-blue-700
+          p-4
+          rounded-xl
+          font-semibold
+          transition
+          "
+        >
+          Login
+        </button>
 
-type="password"
-
-className="
-w-full
-mb-6
-p-4
-rounded
-text-white
-"
-
-placeholder="Password"
-
-/>
-
-<button
-
-className="
-w-full
-bg-blue-600
-p-4
-rounded
-"
-
->
-
-Login
-
-</button>
-
-<div
-className="
-mt-6
-"
->
-
-<Link
-to="/signup"
->
-
-Create Account
-
-</Link>
-
-</div>
-
-</div>
-
-</div>
-
-);
-
+        <div
+          className="
+          mt-6
+          text-center
+          "
+        >
+          <Link
+            to="/signup"
+            className="text-blue-400"
+          >
+            Create Account
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Login;

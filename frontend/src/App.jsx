@@ -1,101 +1,109 @@
+import React from "react";
 import {
-BrowserRouter,
-Routes,
-Route
-}
-from "react-router-dom";
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
-import Navbar from "./components/Navbar";
-
-import Home from "./pages/Home";
+import Sidebar from "./components/Sidebar";
 
 import Dashboard from "./pages/Dashboard";
-
 import Upload from "./pages/Upload";
-
 import Quiz from "./pages/Quiz";
-
-import Chat from "./pages/Chat";
-
-import Planner from "./pages/Planner";
-
 import Analytics from "./pages/Analytics";
-
+import Planner from "./pages/Planner";
 import Profile from "./pages/Profile";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import Settings from "./pages/Settings";
 
-function App(){
+function App() {
+  return (
+    <BrowserRouter>
+      <div className="min-h-screen bg-slate-100">
 
-return(
+        {/* ================= SIDEBAR ================= */}
 
-<BrowserRouter>
+        <Sidebar />
 
-<Navbar/>
+        {/* ================= MAIN CONTENT ================= */}
 
-<Routes>
+        <main className="ml-64 min-h-screen">
 
-<Route
-path="/"
-element={<Home/>}
-/>
+          <Routes>
 
-<Route
-path="/dashboard"
-element={<Dashboard/>}
-/>
+            {/* ================= DASHBOARD ================= */}
 
-<Route
-path="/upload"
-element={<Upload/>}
-/>
+            <Route
+              path="/"
+              element={<Dashboard />}
+            />
 
-<Route
-path="/quiz"
-element={<Quiz/>}
-/>
+            <Route
+              path="/dashboard"
+              element={<Dashboard />}
+            />
 
-<Route
-path="/chat"
-element={<Chat/>}
-/>
+            {/* ================= UPLOAD NOTES ================= */}
 
-<Route
-path="/planner"
-element={<Planner/>}
-/>
+            <Route
+              path="/upload"
+              element={<Upload />}
+            />
 
-<Route
-path="/analytics"
-element={<Analytics/>}
-/>
+            {/* ================= QUIZ ================= */}
 
-<Route
-path="/profile"
-element={<Profile/>}
-/>
+            <Route
+              path="/quiz"
+              element={<Quiz />}
+            />
 
-<Route
-path="/quiz"
-element={<Quiz/>}
-/>
+            {/* ================= ANALYTICS ================= */}
 
-<Route
-path="/login"
-element={<Login/>}
-/>
+            <Route
+              path="/analytics"
+              element={<Analytics />}
+            />
 
-<Route
-path="/signup"
-element={<Signup/>}
-/>
+            {/* ================= STUDY PLANNER ================= */}
 
-</Routes>
+            <Route
+              path="/planner"
+              element={<Planner />}
+            />
 
-</BrowserRouter>
+            {/* ================= PROFILE ================= */}
 
-);
+            <Route
+              path="/profile"
+              element={<Profile />}
+            />
 
+            {/* ================= SETTINGS ================= */}
+
+            <Route
+              path="/settings"
+              element={<Settings />}
+            />
+
+            {/* ================= INVALID ROUTE ================= */}
+
+            <Route
+              path="*"
+              element={
+                <Navigate
+                  to="/dashboard"
+                  replace
+                />
+              }
+            />
+
+          </Routes>
+
+        </main>
+
+      </div>
+    </BrowserRouter>
+  );
 }
 
 export default App;

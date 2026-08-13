@@ -1,90 +1,204 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-function Sidebar(){
+import {
+  LayoutDashboard,
+  BookOpen,
+  ClipboardCheck,
+  CalendarDays,
+  BarChart3,
+  User,
+  Sparkles,
+  Settings,
+} from "lucide-react";
 
-const items=[
+function Sidebar() {
+  const mainItems = [
+    {
+      name: "Dashboard",
+      path: "/dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      name: "My Notes",
+      path: "/upload",
+      icon: BookOpen,
+    },
+  ];
 
-["Dashboard","/dashboard"],
+  const learningItems = [
+    {
+      name: "Quizzes",
+      path: "/quiz",
+      icon: ClipboardCheck,
+    },
+  ];
 
-["Upload","/upload"],
+  const planningItems = [
+    {
+      name: "Study Planner",
+      path: "/planner",
+      icon: CalendarDays,
+    },
+    {
+      name: "Analytics",
+      path: "/analytics",
+      icon: BarChart3,
+    },
+  ];
 
-["Quiz","/quiz"],
+  const NavItem = ({ item }) => {
+    const Icon = item.icon;
 
-["Chat","/chat"],
+    return (
+      <NavLink
+        to={item.path}
+        className={({ isActive }) =>
+          `flex items-center gap-3 px-4 py-3 rounded-xl mb-1.5 text-sm font-medium transition-all duration-200 ${
+            isActive
+              ? "bg-white text-slate-900 shadow-sm"
+              : "text-slate-300 hover:bg-slate-800 hover:text-white"
+          }`
+        }
+      >
+        <Icon size={19} strokeWidth={2} />
+        <span>{item.name}</span>
+      </NavLink>
+    );
+  };
 
-["Planner","/planner"],
+  const SectionTitle = ({ children }) => (
+    <p className="px-4 mb-2 mt-7 text-[11px] font-semibold tracking-widest text-slate-500 uppercase">
+      {children}
+    </p>
+  );
 
-["Analytics","/analytics"],
+  return (
+    <aside className="fixed left-0 top-0 w-64 h-screen bg-slate-950 text-white flex flex-col border-r border-slate-800 z-50">
 
-["Profile","/profile"]
+      {/* Logo */}
+      <div className="px-6 py-6">
+        <div className="flex items-center gap-3">
 
-];
+          <div className="w-10 h-10 rounded-xl bg-white text-slate-950 flex items-center justify-center shadow-sm">
+            <Sparkles size={21} />
+          </div>
 
-return(
+          <div>
+            <h1 className="text-lg font-bold tracking-tight">
+              StudyMate
+            </h1>
 
-<div
-className="
-w-72
-min-h-screen
-bg-slate-950
-text-white
-p-8
-"
->
+            <p className="text-[11px] text-slate-500">
+              AI Learning Assistant
+            </p>
+          </div>
 
-<h1
-className="
-text-3xl
-font-bold
-mb-10
-"
->
+        </div>
+      </div>
 
-StudyMate AI
+      {/* Navigation */}
+      <nav className="flex-1 px-3 overflow-y-auto">
 
-</h1>
+        {/* Main */}
+        <SectionTitle>
+          Main
+        </SectionTitle>
 
-{
+        {mainItems.map((item) => (
+          <NavItem
+            key={item.path}
+            item={item}
+          />
+        ))}
 
-items.map(
+        {/* Learn */}
+        <SectionTitle>
+          Learn
+        </SectionTitle>
 
-(item,index)=>(
+        {learningItems.map((item) => (
+          <NavItem
+            key={item.path}
+            item={item}
+          />
+        ))}
 
-<Link
+        {/* Plan */}
+        <SectionTitle>
+          Plan
+        </SectionTitle>
 
-key={index}
+        {planningItems.map((item) => (
+          <NavItem
+            key={item.path}
+            item={item}
+          />
+        ))}
 
-to={item[1]}
+      </nav>
 
->
+      {/* Bottom */}
+      <div className="px-3 pb-5">
 
-<div
+        {/* Profile */}
+        <NavLink
+          to="/profile"
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+              isActive
+                ? "bg-white text-slate-900 shadow-sm"
+                : "text-slate-300 hover:bg-slate-800 hover:text-white"
+            }`
+          }
+        >
+          <User size={19} strokeWidth={2} />
+          <span>Profile</span>
+        </NavLink>
 
-className="
-mb-6
-hover:bg-slate-800
-p-4
-rounded-xl
-"
+        {/* Settings */}
+        <NavLink
+          to="/settings"
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-4 py-3 mt-1 rounded-xl text-sm font-medium transition-all duration-200 ${
+              isActive
+                ? "bg-white text-slate-900 shadow-sm"
+                : "text-slate-300 hover:bg-slate-800 hover:text-white"
+            }`
+          }
+        >
+          <Settings size={19} strokeWidth={2} />
+          <span>Settings</span>
+        </NavLink>
 
->
+        {/* User Card */}
+        <div className="mt-4 p-3 rounded-xl bg-slate-900 border border-slate-800">
 
-{item[0]}
+          <div className="flex items-center gap-3">
 
-</div>
+            <div className="w-9 h-9 rounded-full bg-slate-700 flex items-center justify-center text-sm font-semibold">
+              S
+            </div>
 
-</Link>
+            <div className="min-w-0">
 
-)
+              <p className="text-sm font-medium text-white truncate">
+                Student
+              </p>
 
-)
+              <p className="text-xs text-slate-500 truncate">
+                Keep learning 🚀
+              </p>
 
-}
+            </div>
 
-</div>
+          </div>
 
-);
+        </div>
 
+      </div>
+
+    </aside>
+  );
 }
 
 export default Sidebar;
